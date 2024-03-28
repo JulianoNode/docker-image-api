@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import com.jmr.domain.Produto;
-import com.jmr.enus.ImageExtension;
 import com.jmr.repository.ImageRepository;
 
 @Configuration
@@ -16,7 +15,13 @@ import com.jmr.repository.ImageRepository;
 public class DBService {
 	Logger logger = LoggerFactory.getLogger(DBService.class);
 	
-    @Bean
+	@Bean
+    Produto commandLineRunner(@Autowired ImageRepository imageRepository) {
+		return null;			
+	}
+	
+	// Metodo de teste de Produto para salvar no banco 
+	/*@Bean
     Produto commandLineRunner(@Autowired ImageRepository imageRepository) {
     	
 		Produto prod = new Produto(null, "Juliano", 1100L, ImageExtension.JPG, null, "Eu", null);
@@ -25,6 +30,6 @@ public class DBService {
 		System.out.println();		
 		return imageRepository.save(prod);
 			
-	}
+	}*/
 
 }
