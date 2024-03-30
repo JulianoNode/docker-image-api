@@ -15,7 +15,7 @@ public enum ImageExtension {
     @Autowired
     private MediaType mediaType;
 
-    ImageExtension(MediaType mediaType) {
+	ImageExtension(MediaType mediaType) {
         this.mediaType = mediaType;
     }
 
@@ -32,4 +32,8 @@ public enum ImageExtension {
                 .findFirst()
                 .orElse(null);
     }
+    
+    public MediaType getMediaType() {
+		return mediaType;
+	}
 }

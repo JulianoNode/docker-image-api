@@ -7,7 +7,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +35,8 @@ public class ProdutoController {
 	@Autowired
 	private ImageMapper mapper;
 	
+
+// Metodo para Salvar DB =======================================================================   
 	@SuppressWarnings("rawtypes")
     @PostMapping
     public ResponseEntity save(
@@ -48,12 +54,36 @@ public class ProdutoController {
         return ResponseEntity.created(imageUri).build();
     }
 	
+	// Retornado o Status mais correto da API 201 CREATED
     private URI buildImageURL(Produto produto){
+    	//http://localhost:8080/j1/images/API 201 CREATED na URL
         String imagePath = "/" + produto.getId();
         return ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path(imagePath)
                 .build().toUri();
     }
+// =======================================================================    
+    
+    @GetMapping("{id}")
+    public ResponseEntity<byte[]> getImage(@PathVariable("id") String id){
+        var possibleImage = service.getById(id);
+        
+        if(possibleImage.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        var image = possibleImage.get();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(image.getExtension().getMediaType());
+        headers.setContentLength(image.getSize());
+        // inline; filename="image.PNG"
+        headers.setContentDispositionFormData("inline; filename=\"" + image.getFileName() +  "\"", image.getFileName());
+
+        return new ResponseEntity<>(image.getFile(), headers, HttpStatus.OK);
+    }
+    
+    
 
 }

@@ -47,6 +47,10 @@ public class Produto {
 	public Produto() {
 
 	}
+	
+    public String getFileName(){
+        return getName().concat(".").concat(getExtension().name());
+    }
 
 	public Produto(String id, String name, Long size, ImageExtension extension, LocalDateTime uploadDate, String tags,
 			byte[] file) {
