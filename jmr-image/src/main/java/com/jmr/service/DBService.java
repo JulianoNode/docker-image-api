@@ -14,22 +14,42 @@ import com.jmr.repository.ImageRepository;
 @Service
 public class DBService {
 	Logger logger = LoggerFactory.getLogger(DBService.class);
-	
+
 	@Bean
-    Produto commandLineRunner(@Autowired ImageRepository imageRepository) {
-		return null;			
+	Produto commandLineRunner(@Autowired ImageRepository imageRepository) {
+		return null;
 	}
-	
-	// Metodo de teste de Produto para salvar no banco 
+
+	// Metodo de teste de Produto para salvar no banco
 	/*@Bean
-    Produto commandLineRunner(@Autowired ImageRepository imageRepository) {
-    	
+	Produto commandLineRunner(@Autowired ImageRepository imageRepository) {
+
 		Produto prod = new Produto(null, "Juliano", 1100L, ImageExtension.JPG, null, "Eu", null);
-		System.out.println(); 
+		System.out.println();
 		logger.info("Produto salvo com susseço : {}", prod);
-		System.out.println();		
+		System.out.println();
 		return imageRepository.save(prod);
-			
+
+	}*/
+	
+	/*@Bean
+	Produto commandLineRunner(@Autowired ImageRepository imageRepository) {
+
+		//Estaciando Uma Imagem para o banco
+		Produto prod = new Produto(
+		null, 
+		"Java", 
+		1000L,
+		ImageExtension.valueOf(MediaType.valueOf(file.getContentType())), 
+		null, 
+		"IDEs DEV", 
+		(file.getBytes()));
+		
+		System.out.println();
+		logger.info("Produto salvo com susseço : {}", prod);
+		System.out.println();
+		return imageRepository.save(prod);
+
 	}*/
 
 }

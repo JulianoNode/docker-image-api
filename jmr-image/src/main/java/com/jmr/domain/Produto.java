@@ -23,27 +23,27 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 @EntityListeners(AuditingEntityListener.class)
-public class Produto{
+public class Produto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
-    @Column
-    private String name;
-    @Column
-    private Long size;
-    @Column
-    @Enumerated(EnumType.STRING)
-    private ImageExtension extension;
-    @Column
-    @CreatedDate
-    private LocalDateTime uploadDate;
-    @Column
-    private String tags;
-    @Column
-    @Lob
-    private byte[] file;
-		
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
+	@Column
+	private String name;
+	@Column
+	private Long size;
+	@Column
+	@Enumerated(EnumType.STRING)
+	private ImageExtension extension;
+	@Column
+	@CreatedDate
+	private LocalDateTime uploadDate;
+	@Column
+	private String tags;
+	@Column
+	@Lob
+	private byte[] file;
+
 	public Produto() {
 
 	}
@@ -143,8 +143,6 @@ public class Produto{
 	public String toString() {
 		return "Produto [id=" + id + ", name=" + name + ", size=" + size + ", extension=" + extension + ", uploadDate="
 				+ uploadDate + ", tags=" + tags + ", file=" + Arrays.toString(file) + "]";
-	}	
-	
-	
-	
+	}
+
 }
