@@ -1,5 +1,6 @@
 package com.jmr.service.implementys;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jmr.domain.Produto;
+import com.jmr.enus.ImageExtension;
 import com.jmr.repository.ImageRepository;
 import com.jmr.service.ImageService;
 
@@ -31,6 +33,11 @@ public class ImageServiceImpl implements ImageService{
 	public Optional<Produto> getById(String id) {
 
 		return imageRepository.findById(id);
+	}
+
+	@Override
+	public List<Produto> search(ImageExtension extension, String query) {
+		return imageRepository.findByExtensionAndNameOrTagsLike(extension, query);
 	}
 
 }

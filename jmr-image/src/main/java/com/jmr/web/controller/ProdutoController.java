@@ -3,6 +3,7 @@ package com.jmr.web.controller;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.jmr.domain.Produto;
+import com.jmr.dto.ProdutoDTO;
+import com.jmr.enus.ImageExtension;
 import com.jmr.service.ImageService;
 import com.jmr.util.ImageMapper;
 
@@ -63,7 +66,7 @@ public class ProdutoController {
                 .path(imagePath)
                 .build().toUri();
     }
-// =======================================================================    
+// Metodo para exsibir DB =======================================================================    
     
     @GetMapping("{id}")
     public ResponseEntity<byte[]> getImage(@PathVariable("id") String id){
@@ -84,6 +87,24 @@ public class ProdutoController {
         return new ResponseEntity<>(image.getFile(), headers, HttpStatus.OK);
     }
     
+// Metodo para search DB =======================================================================      
     
+    // localhost:8080/v1/images?extension=PNG&query=Nature
+    @GetMapping
+    public ResponseEntity<List<ProdutoDTO>> search(
+            @RequestParam(value = "extension", required = false, defaultValue = "") String extension,
+            @RequestParam(value = "query",required = false) String query) throws InterruptedException {
+
+        Thread.sleep(3000L);
+
+        var result = service.search(ImageExtension.ofName(extension), query);
+
+        var images = result.stream().map(image -> {
+            var url = buildImageURL(image);
+            return mapper.imageToDTO(image, url.toString());
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(images);
+    }
 
 }

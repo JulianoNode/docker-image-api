@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jmr.domain.Produto;
+import com.jmr.dto.ProdutoDTO;
 import com.jmr.enus.ImageExtension;
 
 @Component
@@ -23,7 +24,17 @@ public class ImageMapper {
 	        		(String.join(",", tags)), 
 	        		(file.getBytes())
 	        		
-	    		 );		
+	    );		
 	}
+	
+    public ProdutoDTO imageToDTO(Produto prod, String url){
+        return new ProdutoDTO(
+                (url),
+                (prod.getExtension().name()),
+                (prod.getName()),
+                (prod.getSize()),
+                (prod.getUploadDate().toLocalDate())                
+                );
+    }
 
 }
