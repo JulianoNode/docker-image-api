@@ -21,10 +21,10 @@ export default function GaleriaPage(){
     function renderImageCard(image: Image) {
         return (
             <ImageCard key={image.url}
-                       extension={image.extension} 
                        nome={image.name} 
                        src={image.url} 
                        tamanho={image.size}
+                       extension={image.extension} 
                        dataUpload={image.uploadDate}  />
         )
     }
