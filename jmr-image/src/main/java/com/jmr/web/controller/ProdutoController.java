@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ import com.jmr.util.ImageMapper;
 
 @RestController
 @RequestMapping("/j1/images")
+@CrossOrigin("*")
 public class ProdutoController {
 
 	Logger logger = LoggerFactory.getLogger(ProdutoController.class);
