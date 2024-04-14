@@ -1,10 +1,18 @@
-import { Template } from "@/components/Template";
+import { Template, ImageCard } from "@/components";
 
 
 export default function GaleriaPage(){
     return(
         <Template>
-            <h1>Galeria</h1>    
+            <ImageCard /> 
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+
+            <ImageCard /> 
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
         </Template>
         
     )
