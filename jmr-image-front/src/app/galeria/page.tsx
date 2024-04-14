@@ -8,17 +8,21 @@ export default function GaleriaPage(){
 
     const useService = useImageService();
     const [images, setImages] = useState<Image[]>([])
+    const [query, setQuery] = useState<string>('')
+    const [extension, setExtension] = useState<string>('')
 
 
     async function searchImages(){
-        const result = await useService.buscar();
+        const result = await useService.buscar(query, extension);
         setImages(result);
-        console.table(result)
+        console.log("valor digitado: ", query)
     }
 
     function renderImageCard(image: Image) {
         return (
-            <ImageCard nome={image.name} 
+            <ImageCard key={image.url}
+                       extension={image.extension} 
+                       nome={image.name} 
                        src={image.url} 
                        tamanho={image.size}
                        dataUpload={image.uploadDate}  />
@@ -30,13 +34,29 @@ export default function GaleriaPage(){
     }
 
     return(
-        <Template>
-            <button className="bg-red-400" onClick={searchImages}>Click para mudar</button>
-            <section className="grid grid-cols-5 gap-8">
-                {
-                    renderImageCards()
-                }
-            </section>            
+        <Template>    
+            <section className="flex flex-col items-center justify-center my-5">
+                <div className="flex space-x-4">
+                    <input type="text" 
+                        onChange={event => setQuery(event.target.value)}
+                        className="border px-3 py-2 rounded-lg text-gray-900" /> 
+                        <select onChange={event => setExtension(event.target.value)} 
+                                className="border px-4 py-2 rounded-lg text-gray-900">
+                            <option value="">All formats</option>
+                            <option value="PNG">PNG</option>
+                            <option value="JPEG">JPEG</option>
+                            <option value="GIF">GIF</option>
+                        </select>
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={searchImages}>Search</button>
+                    <button className="bg-green-500 text-white px-4 py-2 rounded-lg">Add New</button>                       
+                </div>
+                <br/>
+                <section className="grid grid-cols-4 gap-8">
+                    { renderImageCards() }
+                </section> 
+            </section> 
+
+           
         </Template>       
     )
 
