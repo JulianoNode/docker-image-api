@@ -7,7 +7,6 @@ import { useState } from "react";
 export default function GaleriaPage(){
 
     const useService = useImageService();
-
     const [images, setImages] = useState<Image[]>([])
 
 
@@ -17,12 +16,26 @@ export default function GaleriaPage(){
         console.table(result)
     }
 
+    function renderImageCard(image: Image) {
+        return (
+            <ImageCard nome={image.name} 
+                       src={image.url} 
+                       tamanho={image.size}
+                       dataUpload={image.uploadDate}  />
+        )
+    }
+
+    function renderImageCards(){
+        return images.map(renderImageCard)
+    }
+
     return(
         <Template>
             <button className="bg-red-400" onClick={searchImages}>Click para mudar</button>
             <section className="grid grid-cols-5 gap-8">
-                <ImageCard nome="{nomeImage}" tamanho="12MB" dataUpload="10/12/2001" src="" /> 
-            
+                {
+                    renderImageCards()
+                }
             </section>            
         </Template>       
     )
