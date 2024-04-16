@@ -13,7 +13,7 @@ export const ImageCard: React.FC<ImageCardProps> = ({
 }: ImageCardProps) => {
 
     function download(){
-        window.open(src, '_blank')
+        window.open(src, '_parent')
     }
 
     return (
