@@ -1,0 +1,4 @@
+    Dependencias Intaladas na Aplicação
+
+npm install --save formik@2.4.5 
+npm install --save yup@1.2.0

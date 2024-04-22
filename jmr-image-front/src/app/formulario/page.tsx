@@ -1,23 +1,46 @@
 'use client'
 
 import { Button, InputText, Template } from '@/components'
+import { useFormik } from 'formik'
 import Link from 'next/link'
 
+interface FormProps{
+    name: string;
+    tags: string;
+    file: any;
+}
+
+const formScheme: FormProps = { name: '', tags: '', file: ''}
+
+
 export default function FormularioPage(){
+
+    const formik = useFormik<FormProps>({
+        initialValues: formScheme,
+        onSubmit: (dados: FormProps) => {
+            console.log(dados)
+        }
+    })
+
     return(
         <Template>
             <section className='flex flex-col items-center justify-center my-5'>
                 <h5 className='mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-900'>Nova Imagem</h5>
-                <form action="">
+                <form onSubmit={formik.handleSubmit}>
                 
                     <label className='block text-sm font-medium leading-6 text-gray-900'>Name: *</label>
+                   
                     <div className='grid grid-cols-3'>
-                        <InputText id="name" placeholder="Digite o nome da Imagem" />                            
+                        <InputText  id="name" 
+                                    onChange={formik.handleChange} 
+                                    placeholder="Digite o nome da Imagem" />                            
                     </div>
+
                     <div className='mt-5 grid grid-cols-1'>
                         <label className='block text-sm font-medium leading-6 text-gray-900'>Tags: *</label>
-                        <InputText id="name" 
-                            placeholder="Digite o nome das tegs separada por virgula" />
+                        <InputText  id="tags" 
+                                    onChange={formik.handleChange}
+                                    placeholder="Digite o nome das tegs separada por virgula" />
                             
                     </div>
                     <div className='mt-5 grid grid-cols-1'>
@@ -30,10 +53,10 @@ export default function FormularioPage(){
                                         clipRule="evenodd" />
                                 </svg>
                                 <div className='mt-4 flex text-sm leading-6 text-gray-600'>
+                                    
                                     <label className='relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600'>
                                         <span>Click to upload</span>
-                                        <input type='file' className='sr-only' />
-                                    
+                                        <input type='file' className='sr-only' />                                    
                                     </label>
                                 </div>
                             </div>
