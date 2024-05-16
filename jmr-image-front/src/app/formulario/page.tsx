@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, InputText, RenderIf, Template, useNotification } from '@/components'
+import { Button, InputText, RenderIf, Template, useNotification, FieldError} from '@/components'
 import { useImageService } from '@/resources/image/image.service'
 import { useFormik } from 'formik'
 import { useState } from 'react';
@@ -53,29 +53,33 @@ export default function FormularioPage(){
             <section className='flex flex-col items-center justify-center my-5'>
                 <h5 className='mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-900'>Nova Imagem</h5>
                 <form onSubmit={formik.handleSubmit}>
-                
-                    <label className='block text-sm font-medium leading-6 text-gray-900'>Name: *</label>
+                    
+                    <label className='block text-sm font-medium leading-6 text-gray-900'>Name: *</label> 
+                    <FieldError error={formik.errors.name} />  
                    
                     <div className='grid grid-cols-3'>
                         <InputText  id="name" 
                                     onChange={formik.handleChange} 
                                     value={formik.values.name}
-                                    placeholder="Digite o nome da Imagem" />   
-                                                         
-                    </div>
-                    <span className='text-red-500'> {formik.errors.name}</span>  
+                                    placeholder="Digite o nome da Imagem" />                                                           
+                    </div>     
 
                     <div className='mt-5 grid grid-cols-1'>
+
                         <label className='block text-sm font-medium leading-6 text-gray-900'>Tags: *</label>
+                        <FieldError error={formik.errors.tags} />
                         <InputText  id="tags" 
                                     onChange={formik.handleChange}
                                     value={formik.values.tags}
                                     placeholder="Digite o nome das tegs separada por virgula" />
                     </div>
-                    <span className='text-red-500'> {formik.errors.tags}</span> 
+                    
+                
+
                     <div className='mt-5 grid grid-cols-1'>
 
                         <label className='block text-sm font-medium leading-6 text-gray-700'>Image: *</label>
+                        <FieldError error={formik.errors.file} />
                         <div className='mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10'>
                             <div className='text-center'>
 
@@ -104,7 +108,7 @@ export default function FormularioPage(){
                                 </div>
                             </div>
                         </div>
-                        <span className='text-red-500'> {formik.errors.file}</span>
+                        
                     </div>
                     <div className='mt-5 flex items-center justify-end gap-x-4'>
                             <Button style='bg-blue-500 hover:bg-blue-300' type='submit' label='Save' />
