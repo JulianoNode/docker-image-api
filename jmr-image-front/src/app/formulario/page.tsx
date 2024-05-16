@@ -4,15 +4,8 @@ import { Button, InputText, RenderIf, Template, useNotification } from '@/compon
 import { useImageService } from '@/resources/image/image.service'
 import { useFormik } from 'formik'
 import { useState } from 'react';
+import { FormProps, formScheme, formValidationScheme } from './formScheme'
 import Link from 'next/link'
-
-interface FormProps{
-    name: string;
-    tags: string;
-    file: any;
-}
-
-const formScheme: FormProps = { name: '', tags: '', file: ''}
 
 export default function FormularioPage(){
 
@@ -23,7 +16,8 @@ export default function FormularioPage(){
     
     const formik = useFormik<FormProps>({
         initialValues: formScheme,
-        onSubmit: handleSubmit
+        onSubmit: handleSubmit,
+        validationSchema: formValidationScheme
     })
 
     async function handleSubmit(dados: FormProps) {
@@ -66,8 +60,10 @@ export default function FormularioPage(){
                         <InputText  id="name" 
                                     onChange={formik.handleChange} 
                                     value={formik.values.name}
-                                    placeholder="Digite o nome da Imagem" />                            
+                                    placeholder="Digite o nome da Imagem" />   
+                                                         
                     </div>
+                    <span className='text-red-500'> {formik.errors.name}</span>  
 
                     <div className='mt-5 grid grid-cols-1'>
                         <label className='block text-sm font-medium leading-6 text-gray-900'>Tags: *</label>
@@ -76,6 +72,7 @@ export default function FormularioPage(){
                                     value={formik.values.tags}
                                     placeholder="Digite o nome das tegs separada por virgula" />
                     </div>
+                    <span className='text-red-500'> {formik.errors.tags}</span> 
                     <div className='mt-5 grid grid-cols-1'>
 
                         <label className='block text-sm font-medium leading-6 text-gray-700'>Image: *</label>
@@ -107,7 +104,7 @@ export default function FormularioPage(){
                                 </div>
                             </div>
                         </div>
-
+                        <span className='text-red-500'> {formik.errors.file}</span>
                     </div>
                     <div className='mt-5 flex items-center justify-end gap-x-4'>
                             <Button style='bg-blue-500 hover:bg-blue-300' type='submit' label='Save' />
